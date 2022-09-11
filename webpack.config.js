@@ -1,43 +1,46 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require("webpack");
+var path = require("path");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const VENDOR_LIBS = [
-  'react', 'lodash', 'redux', 'react-redux', 'react-dom',
-  'faker', 'react-input-range', 'redux-form', 'redux-thunk'
+  "react",
+  "lodash",
+  "react-dom",
+  "faker",
+  "react-input-range",
 ];
 
 module.exports = {
   entry: {
-    bundle: './src/index.js',
-    vendor: VENDOR_LIBS
+    bundle: "./src/index.js",
+    vendor: VENDOR_LIBS,
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    path: path.join(__dirname, "dist"),
+    filename: "[name].[chunkhash].js",
   },
   module: {
     rules: [
       {
-        use: 'babel-loader',
+        use: "babel-loader",
         test: /\.js$/,
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
-        use: ['style-loader', 'css-loader'],
-        test: /\.css$/
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+        test: /\.css$/,
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest']
+      names: ["vendor", "manifest"],
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
-  ]
+      template: "src/index.html",
+    }),
+  ],
 };
